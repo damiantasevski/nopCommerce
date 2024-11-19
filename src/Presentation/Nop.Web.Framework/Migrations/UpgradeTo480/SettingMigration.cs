@@ -3,6 +3,7 @@ using Nop.Core.Domain.Catalog;
 using Nop.Core.Domain.Orders;
 using Nop.Core.Domain.Tax;
 using Nop.Core.Domain.Common;
+using Nop.Core.Domain.Media;
 using Nop.Core.Infrastructure;
 using Nop.Data;
 using Nop.Data.Migrations;
@@ -73,6 +74,14 @@ public class SettingMigration : MigrationBase
         {
             adminAreaSettings.ProductsBulkEditGridPageSize = 100;
             settingService.SaveSetting(adminAreaSettings, settings => settings.ProductsBulkEditGridPageSize);
+        }
+
+        //#5818
+        var mediaSettings = settingService.LoadSetting<MediaSettings>();
+        if (!settingService.SettingExists(mediaSettings, settings => settings.AutoOrientImage))
+        {
+            mediaSettings.AutoOrientImage = false;
+            settingService.SaveSetting(mediaSettings, settings => settings.AutoOrientImage);
         }
     }
 
