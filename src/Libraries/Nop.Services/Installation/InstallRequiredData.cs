@@ -356,7 +356,6 @@ public partial class InstallationService
         //download and import language pack
         try
         {
-
             var httpClient = _httpClientFactory.CreateClient(NopHttpDefaults.DefaultHttpClient);
             await using var stream = await httpClient.GetStreamAsync(_installationSettings.LanguagePackDownloadLink);
             using var streamReader = new StreamReader(stream);
